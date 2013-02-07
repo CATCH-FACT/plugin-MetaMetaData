@@ -62,7 +62,9 @@ class MetaMetaData_Controller_Plugin_MadFilter extends Zend_Controller_Plugin_Ab
             foreach ($allTerms as $allTerm) {
                 $elementSet = $db->getTable('ElementSet')->find($allTerm->element_set_id);
 #               print $allTerm->name . " + " . $allTerm->element_set_id . " >> " . $elementSet->name;
-                add_filter(array('ElementInput', 'Item', $elementSet->name, $allTerm->name), array($this, 'filterElementInputMmd'), 15);
+                if ($elementSet){
+                    add_filter(array('ElementInput', 'Item', $elementSet->name, $allTerm->name), array($this, 'filterElementInputMmd'), 15);
+                }
 #                add_filter(array('ElementInput', 'Item', $elementSet->name, $allTerm->name), array($this, 'input_filter'), 15);
             }
             // Once the filter is applied for one route there is no need to 
