@@ -208,8 +208,8 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
                 }
                 $html .= ($mmdForItem->disputed == 1) ? "<span class='deprecated' style='font-size=6; color:orange;'>Disputed</span><br>" : "";
                 $html .= ($mmdForItem->erroneous == 1) ?  "<span class='deprecated' style='font-size=6; color:red;'>Erroneous</span><br>" : "";
-                $html .= ($mmdForItem->created_by_user_id) ? "Add: " . $this->_db->getTable('User')->find($mmdForItem->created_by_user_id)->name . " / " : "";
-                $html .= ($mmdForItem->modified_by_user_id) ? "Mod: " . $this->_db->getTable('User')->find($mmdForItem->modified_by_user_id)->name . "<br>" : "";
+                $html .= ($mmdForItem->created_by_user_id) ? "Add: " . $this->_db->getTable('User')->find($mmdForItem->created_by_user_id)->name : "";
+                $html .= ($mmdForItem->modified_by_user_id) ? " / Mod: " . $this->_db->getTable('User')->find($mmdForItem->modified_by_user_id)->name . "<br>" : "";
                 $html .= "</div>";
             }
             echo $html;

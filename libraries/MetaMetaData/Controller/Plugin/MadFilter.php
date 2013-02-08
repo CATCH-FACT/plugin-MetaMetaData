@@ -106,14 +106,12 @@ class MetaMetaData_Controller_Plugin_MadFilter extends Zend_Controller_Plugin_Ab
         $index = $args['index'];
 		$mmdManualTypes = array( "Disputed" => "disputed", 
                                 "Erroneous" =>"erroneous");
-        #$mmdTypes = array( "disputed", "generated", "proofread", "erroneous");
-#        _log("TERREUR");
         $mmdBoxOptions = $db->getTable('MetaMetaData')->findMetaMetaDataByItem($args); #retrieve the metadata for this item
-        
-#        _log("this");
-#        $args->_log("HAAH");
-#        _log("asdfgh: " . print_r($mmdBoxOptions, true), Zend_Log::DEBUG);
-
+        if (!$mmdBoxOptions){
+            $mmdBoxOptions["generated"] = 0;
+            $mmdBoxOptions["disputed"] = 0;
+            $mmdBoxOptions["erroneous"] = 0;
+        }
 #        $mmdBoxOptions = array( "disputed" => 0 , "generated" => 1, "proofread" =>1, "erroneous" => 0, "confidence" => "0.6");
         $addHtml = "<div class='metametadata' style='background-color:lightgray;'>";
         if ($mmdBoxOptions["generated"] == 1){
