@@ -11,7 +11,7 @@
  *
  * @package MetaMetaData
  */
-class SimplePages_IndexController extends Omeka_Controller_AbstractActionController
+class MetaMetaData_IndexController extends Omeka_Controller_AbstractActionController
 {    
     public function init()
     {
@@ -30,15 +30,15 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
     public function addAction()
     {
         // Create a new metametadata Item.
-        $mmdI = new MetaMetaData;
+#        $mmdI = new MetaMetaData;
         
         // Set the created by user ID.
-        $mmdI->created_by_user_id = current_user()->id;
-        $mmdI->$element_id; = get_current_record('item')->id; #WORKS?
-        $mmdI->$element_text_id; = ; #WORKS?
-        $mmdI->added = date('Y-m-d H:i:s')
-        $this->view->form = $this->_getForm($page);        
-        $this->_processPageForm($page, 'add');
+#        $mmdI->created_by_user_id = current_user()->id;
+#        $mmdI->$element_id = get_current_record('item')->id; #WORKS?
+#        $mmdI->$element_id = ; #WORKS?
+#        $mmdI->added = date('Y-m-d H:i:s')
+#        $this->view->form = $this->_getForm($page);        
+#        $this->_processPageForm($page, 'add');
     }
     
     public function editAction()

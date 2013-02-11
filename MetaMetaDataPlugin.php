@@ -262,8 +262,8 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
     public function filterAdminNavigationMain($nav)
     {
         $nav[] = array(
-            'label' => __('Metametadata'),
-            'uri' => url('metametadata'),
+            'label' => __('MetaMetaData'),
+            'uri' => url('meta-meta-data'),
             'resource' => 'MetaMetaData_Index',
             'privilege' => 'browse'
         );

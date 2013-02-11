@@ -51,6 +51,16 @@ class MetaMetaData extends Omeka_Record_AbstractRecord
         return $this->erroneous;
     }
     
+
+    /**
+     * Get the modified by user object.
+     * 
+     * @return Element
+     */
+    public function getElementId()
+    {
+        return $this->getTable('Element')->find($this->element_id);
+    }
     
     /**
      * Get the modified by user object.
@@ -102,5 +112,20 @@ class MetaMetaData extends Omeka_Record_AbstractRecord
     {
         _log("metametadata saved!");
         #No aftershave
+    }
+    
+    public function getProperty($property)
+    {
+        switch($property) {
+            case 'created_username':
+                return $this->getCreatedByUser()->username;
+            case 'modified_username':
+                return $this->getModifiedByUser()->username;
+            case 'element_name':
+                return $this->getElementId()->name;
+                
+            default:
+                return parent::getProperty($property);
+        }
     }
 }

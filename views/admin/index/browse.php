@@ -5,27 +5,23 @@ $head = array('bodyclass' => 'metametadata primary',
 echo head($head);
 ?>
 <ul id="section-nav" class="navigation">
-    <li class="<?php if (isset($_GET['view']) &&  $_GET['view'] != 'hierarchy') {echo 'current';} ?>">
-	
-        <a href="<?php echo html_escape(url('metametadata/index/browse?view=list')); ?>"><?php echo __('List View'); ?></a>
-
+    <li class="<?php if (isset($_GET['view']) &&  $_GET['view'] == 'list') {echo 'current';} ?>">
+        <a href="<?php echo html_escape(url('meta-meta-data/index/browse?view=list')); ?>"><?php echo __('List View'); ?></a>
     </li>
-    <li class="<?php if (isset($_GET['view']) && $_GET['view'] == 'hierarchy') {echo 'current';} ?>">
-	
-        <a href="<?php echo html_escape(url('simple-pages/index/browse?view=hierarchy')); ?>"><?php echo __('Hierarchy View'); ?></a>
-
+    <li class="<?php if (isset($_GET['view']) && $_GET['view'] == 'more') {echo 'current';} ?>">
+        <a href="<?php echo html_escape(url('meta-meta-data/index/browse?view=more')); ?>"><?php echo __('More'); ?></a>
     </li>
 </ul>
 <?php echo flash(); ?>
 
-<a class="add-page button small green" href="<?php echo html_escape(url('metametadata/index/add')); ?>"><?php echo __('Add a Page'); ?></a>
-<?php if (!has_loop_records('simple_pages_page')): ?>
-    <p><?php echo __('There is no metametadata.'); ?> <a href="<?php echo html_escape(url('metametadata/index/add')); ?>"><?php echo __('Add a page.'); ?></a></p>
+<?php if (!has_loop_records('meta_meta_data')): ?>
+    <p><?php echo __('There is no metametadata.'); ?></p>
 <?php else: ?>
-    <?php if (isset($_GET['view']) && $_GET['view'] == 'hierarchy'): ?>
-        <?php echo $this->partial('index/browse-hierarchy.php', array('MetaMetaData' => $simple_pages_pages)); ?>
+    <?php if (isset($_GET['view']) && $_GET['view'] == 'list'): ?>
+        <?php echo $this->partial('index/browse-list.php', array('MetaMetaData' => $meta_meta_datas)); ?>
     <?php else: ?>
-        <?php echo $this->partial('index/browse-list.php', array('MetaMetaData' => $simple_pages_pages)); ?>
+        <H2><?php echo __('Metametadata Overview'); ?></H2>
+        <?php echo $this->partial('index/browse-list.php', array('MetaMetaData' => $meta_meta_datas)); ?>
     <?php endif; ?>    
 <?php endif; ?>
 <?php echo foot(); ?>
