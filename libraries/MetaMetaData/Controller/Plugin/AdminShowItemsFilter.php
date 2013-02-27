@@ -56,8 +56,8 @@ class MetaMetaData_Controller_Plugin_AdminShowItemsFilter extends Zend_Controlle
 #            exit();
             // Add the filters if the current route is registered.
             // Loop all elements / or specific set of elements
-            _log("REQUEST: " . get_class($request));
-            _log("THIS: " . get_class($this));
+#            _log("REQUEST: " . get_class($request));
+#            _log("THIS: " . get_class($this));
 #            $allTerms = $db->getTable('Element')->findAll();
             $mmdsForItem = $db->getTable('MetaMetaData')->findMetaMetaDatasByKeys($recordId);
 #            add_filter(array('Display', 'Item', "Dublin Core", "Title"), array($this, 'filterElementShow'), 16);

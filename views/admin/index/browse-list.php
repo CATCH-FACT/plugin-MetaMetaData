@@ -1,3 +1,4 @@
+<div class="pagination"><?php echo pagination_links(); ?></div>
 <table class="full">
     <thead>
         <tr>
@@ -16,7 +17,7 @@
         <tr>
             <td>
                 <span class="title">
-                    <a href="<?php echo html_escape(url('items/edit/' . metadata('meta_meta_datas', 'record_id'))); ?>">
+                    <a href="<?php echo html_escape(url('items/show/' . metadata('meta_meta_datas', 'record_id'))); ?>">
                         <?php echo metadata('meta_meta_datas', 'record_id'); ?>
                     </a>
                 </span>
@@ -24,11 +25,10 @@
             <td>
                 <span class="title">
                     <a href="<?php echo html_escape(url('items/edit/' . metadata('meta_meta_datas', 'record_id'))); ?>">
-                        <?php echo metadata('meta_meta_datas', 'element_name'); ?>
+                        <?php echo __(metadata('meta_meta_datas', 'element_name')); ?>
                     </a>
                 </span>
             </td>
-
             <td><?php if(metadata('meta_meta_datas', 'disputed')): ?>
                 <?php echo __("<span class='deprecated' style='font-size=6; color:red;'>Yes</span>"); ?>
                 <?php else: ?>
@@ -62,3 +62,4 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<div class="pagination"><?php echo pagination_links(); ?></div>

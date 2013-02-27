@@ -128,4 +128,20 @@ class MetaMetaData_IndexController extends Omeka_Controller_AbstractActionContro
     {
         return __('The metametadata Item "%s" has been deleted.', $record->meta_metadata_type);
     }
+    
+    /**
+     * Goes to results page based off value in text input.
+     */
+    public function paginationAction()
+    {
+        $pageNumber = (int)$_POST['page'];
+        $baseUrl = $this->getRequest()->getBaseUrl().'/items/browse/';
+    	$request = Zend_Controller_Front::getInstance()->getRequest(); 
+    	$requestArray = $request->getParams();        
+        if($currentPage = $this->current) {
+            $paginationUrl = $baseUrl.$currentPage;
+        } else {
+            $paginationUrl = $baseUrl;
+        }
+    }
 }

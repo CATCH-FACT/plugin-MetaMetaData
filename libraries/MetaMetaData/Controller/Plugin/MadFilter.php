@@ -129,7 +129,8 @@ class MetaMetaData_Controller_Plugin_MadFilter extends Zend_Controller_Plugin_Ab
         $addHtml .= "</div>";
 
 		$components['input'] =  $components['input'] . $addHtml; 				#here the original input should be put. 
-
+        if ((boolean)get_option('show_html_box_on_forms')) {$components['html_checkbox'] = false;}
+        
         return $components;
     }
 

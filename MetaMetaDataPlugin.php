@@ -18,11 +18,11 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_hooks = array('install', 
 							  'uninstall', 
 							'initialize',
-#							'admin_items',
 							'define_acl', 
 							'define_routes',
 							'config_form', 
 							'config',
+                            'public_items_show',
 							'admin_items_show_sidebar',
 							'admin_items_panel_buttons',
 							'after_save_item'
@@ -32,14 +32,14 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
      * @var array Filters for the plugin.
      */
     protected $_filters = array('admin_navigation_main',
-#            					'admin_items_form_tabs',
-#        						'public_navigation_main', 
 								'search_record_types');
 
 	/**
      * @var array Options and their default values.
      */
     protected $_options = array(
+        'meta_meta_data_show_public' => 0,
+        'show_html_box_on_forms' => 1,
         'show_in_public_view' => 0,
         'maximum_score_disputed' => '1.0',
 		'metametadata_types' => ""
@@ -53,6 +53,13 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
     function filterElement($args)
     {
         return "VALUE TEST";
+    }
+    
+    
+    public function hookPublicItemsShow($args){
+        if ((boolean)get_option('meta_meta_data_show_public')){
+            $this->sidebarShow($args);
+        }
     }
     
     
@@ -184,16 +191,13 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
 	}
 
 
-	/**admin_items_show_sidebar
-	*   ToDo: Add style sheets in stead of style in html code
-	**/
-    public function hookAdminItemsShowSidebar($args){
+    public function sidebarShow($args){
         $item = $args['item'];
         $recordId = $item->id;
         #First we check existing MMD items in the database. If no mmdPost data exists for them, the proofread/disputed/erroneous settings have to be emptied
         $mmdsForItem = $this->_db->getTable('MetaMetaData')->findMetaMetaDatasByKeys($recordId);
         echo "<div class='panel'>";
-        echo "<h4>" . __("MetaMetaData") . "</h4><br>";
+        echo "<h2>" . __("MetaMetaData") . "</h2><br>";
         $html = "";
         if (!empty($mmdsForItem)) {
             foreach ($mmdsForItem as $mmdForItem){
@@ -218,6 +222,14 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
             print "<span class='deprecated' style='font-size=6; color:green;'>No issues.</span><br>";
         }
         echo "</div>";
+    }
+
+
+	/**admin_items_show_sidebar
+	*   ToDo: Add style sheets in stead of style in html code
+	**/
+    public function hookAdminItemsShowSidebar($args){
+        $this->sidebarShow($args);
 	}
 	
     /**
@@ -234,7 +246,7 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
         $acl->add($pageResource);
         $acl->allow(array('super', 'admin'), array('MetaMetaData_Index', 'MetaMetaData_Page'));
         $acl->allow(null, 'MetaMetaData_Page', 'show');
-        $acl->deny(null, 'MetaMetaData_Page', 'show-unpublished');
+#        $acl->deny(null, 'MetaMetaData_Page', 'show-unpublished');
     }
 
     /**
@@ -250,7 +262,8 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function hookConfig()
     {
-        set_option('meta_meta_data_filter_page_content', (int)(boolean)$_POST['meta_meta_data_filter_page_content']);
+        set_option('meta_meta_data_show_public', (int)(boolean)$_POST['meta_meta_data_show_public']);
+        set_option('show_html_box_on_forms', (int)(boolean)$_POST['show_html_box_on_forms']);
     }
 
 	/**

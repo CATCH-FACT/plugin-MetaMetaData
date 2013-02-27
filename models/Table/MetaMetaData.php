@@ -103,9 +103,9 @@ class MetaMetaDataTable extends Omeka_Db_Table
 #        print $select;
         
         // Get the items
-        _log("fetching");
+#        _g("fetching metametadata objects");
         $metametadata = $this->fetchObjects($select);
-        _log("fetched");
+#        _log("fetched");
 #        _log("POSTINDEX:" . print_r($metametadata, true));
         
         // If only a single mmd is request, return the first one found.
