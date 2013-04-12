@@ -197,7 +197,7 @@ class MetaMetaDataPlugin extends Omeka_Plugin_AbstractPlugin
         #First we check existing MMD items in the database. If no mmdPost data exists for them, the proofread/disputed/erroneous settings have to be emptied
         $mmdsForItem = $this->_db->getTable('MetaMetaData')->findMetaMetaDatasByKeys($recordId);
         echo "<div class='panel'>";
-        echo "<h2>" . __("MetaMetaData") . "</h2><br>";
+        echo "<h4>" . __("MetaMetaData") . "</h4><br>";
         $html = "";
         if (!empty($mmdsForItem)) {
             foreach ($mmdsForItem as $mmdForItem){
